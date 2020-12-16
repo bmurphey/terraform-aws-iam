@@ -14,12 +14,17 @@ data "aws_iam_policy_document" "assume_role" {
       identifiers = var.trusted_role_services
     }
 
+    principals {
+      type        = "Federated"
+      identifiers = var.trusted_role_idp_arns
+    }
+
     dynamic "condition" {
-      for_each = var.role_sts_externalid != null ? [true] : []
+      for_each = var.condition_values != null ? [true] : []
       content {
         test     = "StringEquals"
-        variable = "sts:ExternalId"
-        values   = [var.role_sts_externalid]
+        variable = var.condition_variable
+        values   = var.condition_values
       }
     }
   }
