@@ -1,3 +1,15 @@
+variable "condition_values" {
+  description = "Assume role condition value for condition_variable to test against (when MFA is not required)"
+  type        = list(string)
+  default     = null
+}
+
+variable "condition_variable" {
+  description = "Assume role condition variable to test condition_values against (when MFA is not required)"
+  type        = string
+  default     = "sts:ExternalId"
+}
+
 variable "trusted_role_actions" {
   description = "Actions of STS"
   type        = list(string)
@@ -6,6 +18,12 @@ variable "trusted_role_actions" {
 
 variable "trusted_role_arns" {
   description = "ARNs of AWS entities who can assume these roles"
+  type        = list(string)
+  default     = []
+}
+
+variable "trusted_role_idp_arns" {
+  description = "ARNs of Identity Providers who can assume these roles"
   type        = list(string)
   default     = []
 }
@@ -130,10 +148,3 @@ variable "role_description" {
   type        = string
   default     = ""
 }
-
-variable "role_sts_externalid" {
-  description = "STS ExternalId condition value to use with a role (when MFA is not required)"
-  type        = string
-  default     = null
-}
-
