@@ -45,6 +45,29 @@ resource "aws_iam_role_policy_attachment" "admin" {
   policy_arn = element(var.admin_role_policy_arns, count.index)
 }
 
+# Custom
+resource "aws_iam_role" "admin" {
+  count = var.create_custom_role ? 1 : 0
+
+  name                 = var.custom_role_name
+  path                 = var.custom_role_path
+  max_session_duration = var.max_session_duration
+
+  force_detach_policies = var.force_detach_policies
+  permissions_boundary  = var.custom_role_permissions_boundary_arn
+
+  assume_role_policy = data.aws_iam_policy_document.assume_role_with_saml.json
+
+  tags = var.custom_role_tags
+}
+
+resource "aws_iam_role_policy_attachment" "custom" {
+  count = var.create_custom_role ? length(var.custom_role_policy_arns) : 0
+
+  role       = aws_iam_role.custom[0].name
+  policy_arn = element(var.custom_role_policy_arns, count.index)
+}
+
 # Poweruser
 resource "aws_iam_role" "poweruser" {
   count = var.create_poweruser_role ? 1 : 0

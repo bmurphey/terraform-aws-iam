@@ -53,6 +53,43 @@ variable "admin_role_tags" {
   default     = {}
 }
 
+# Custom
+variable "create_custom_role" {
+  description = "Whether to create custom role"
+  type        = bool
+  default     = false
+}
+
+variable "custom_role_name" {
+  description = "IAM role with custom access"
+  type        = string
+  default     = "custom"
+}
+
+variable "custom_role_path" {
+  description = "Path of custom IAM role"
+  type        = string
+  default     = "/"
+}
+
+variable "custom_role_policy_arns" {
+  description = "List of policy ARNs to use for custom role"
+  type        = list(string)
+  default     = []
+}
+
+variable "custom_role_permissions_boundary_arn" {
+  description = "Permissions boundary ARN to use for custom role"
+  type        = string
+  default     = ""
+}
+
+variable "custom_role_tags" {
+  description = "A map of tags to add to custom role resource."
+  type        = map(string)
+  default     = {}
+}
+
 # Poweruser
 variable "create_poweruser_role" {
   description = "Whether to create poweruser role"

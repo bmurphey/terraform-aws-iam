@@ -14,6 +14,23 @@ output "admin_iam_role_path" {
   value       = element(concat(aws_iam_role.admin.*.path, list("")), 0)
 }
 
+#Custom
+output "custom_iam_role_arn" {
+  description = "ARN of custom IAM role"
+  value       = element(concat(aws_iam_role.custom.*.arn, list("")), 0)
+}
+
+output "custom_iam_role_name" {
+  description = "Name of custom IAM role"
+  value       = element(concat(aws_iam_role.custom.*.name, list("")), 0)
+}
+
+output "custom_iam_role_path" {
+  description = "Path of custom IAM role"
+  value       = element(concat(aws_iam_role.custom.*.path, list("")), 0)
+}
+
+#Poweruser
 output "poweruser_iam_role_arn" {
   description = "ARN of poweruser IAM role"
   value       = element(concat(aws_iam_role.poweruser.*.arn, list("")), 0)
