@@ -46,7 +46,7 @@ resource "aws_iam_role_policy_attachment" "admin" {
 }
 
 # Custom
-resource "aws_iam_role" "admin" {
+resource "aws_iam_role" "custom" {
   count = var.create_custom_role ? 1 : 0
 
   name                 = var.custom_role_name
